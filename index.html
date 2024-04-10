@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/d/d1/Favicon.ico.png" />
+    <title>Gemini chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas/4.2.5/tocas.min.css" />
+    <style>
+        #chatting-app-main-screen + .ts-divider { margin: 1rem auto; }
+        .is-disabled, *:disabled { cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <main class="ts-container">
+        <h1>Gemini chat by API</h1>
+        <div id="chatting-app-main-screen" class="main-screen"></div>
+        <div class="ts-divider"></div>
+        <div class="input-chat">
+            <form id="chatting-app-prompt-form">
+                <div class="ts-grid">
+                    <div class="column is-12-wide">
+                        <div class="ts-input is-resizable">
+                            <!-- 寫個故事背包的故事吧？ -->
+                            <textarea
+                                placeholder="你想說什麼呢？"
+                                name="prompt"
+                                required
+                                disabled aria-disabled="true"
+                                class="is-disabled controlling-items"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="column is-4-wide">
+                        <button
+                            type="submit"
+                            disabled aria-disabled="true"
+                            class="ts-button is-disabled controlling-items"
+                        >送出</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- <button id="chatting-app-test-sent" type="submit" class="ts-button">Test btn</button> -->
+    </main>
+    <template id="chatting-conversation-item-template">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas/4.2.5/tocas.min.css" />
+        <style>.ts-conversation { margin: 0.5rem auto; }</style>
+        <div class="ts-conversation">
+            <div class="avatar">
+                <img src="" alt="User avatar" class="avatar" />
+            </div>
+            <div class="content">
+                <div class="bubble">
+                    <div class="author">
+                        <!-- Add: <span>妳</span> -->
+                        <slot name="user-name"></slot>
+                    </div>
+                    <div class="text">
+                        <!-- Add: <pre>NEED Content</pre> -->
+                        <slot name="content">NEED Content</slot>
+                    </div>
+                    <div class="meta">
+                        <div class="item">
+                            <!-- Add: <time datetime="unknown"></time> -->
+                            <slot name="time">Date unknown</slot>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script type="importmap">
+    {
+        "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+    }
+    </script>
+    <script type="module" src="index.js"></script>
+</body>
+</html>
